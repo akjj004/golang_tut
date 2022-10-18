@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"text/template"
+	"time"
 )
 
 var items = [3]item{
@@ -51,6 +53,10 @@ func itemFunc(w http.ResponseWriter, r *http.Request) {
 	if id >= 0 {
 		tmpl, _ := template.ParseFiles("TASKC4T2/pages/parse.html")
 		tmpl.Execute(w, &items[id])
+		file, _ := os.OpenFile("logs.txt", os.O_APPEND|os.O_WRONLY, 0644)
+		file.WriteString(fmt.Sprint(id) + "\t" + time.Now().String() + "\n")
+		file.Close()
+
 	}
 
 }
