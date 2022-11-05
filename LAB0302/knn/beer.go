@@ -40,7 +40,7 @@ func (b1 *Beer) Distance(b2 *Beer) float64 {
 	if b1.Style != b2.Style {
 		d += 1.0
 	}
-	d += math.Abs(b1.Abv-b2.Abv) * 5.0
+	d += math.Abs(b1.Abv-b2.Abv) * 100.0
 	d += math.Abs(b1.Ibu-b2.Ibu) * 0.01
 	return d
 }

@@ -30,6 +30,8 @@
               <th scope="col">Id</th>
               <th scope="col">Name</th>
               <th scope="col">Style</th>
+              <th scope="col">Estim</th>
+              
               <th scope="col">Score</th>
             </tr>
           </thead>
@@ -39,6 +41,8 @@
               <th scope="row">{{.Id}}</th>
               <td>{{.Name}}</td>
               <td>{{.Style}}</td>
+              <td>{{.Estim}}</td>
+
               <td><select id="{{.Id}}" name="piwo{{.Id}}" form="PostForm">
                 <option value="1">1</option>
                 <option value="2">2</option>

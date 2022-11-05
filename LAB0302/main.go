@@ -6,11 +6,17 @@ import (
 	"math/rand"
 	"net/http"
 	"strconv"
+	"strings"
 	"text/template"
 	"time"
 )
 
 var recsys *knn.Knn
+
+type  Data struct {
+	Beer knn.Beer
+	StyleName string
+}
 
 func beerFunc(w http.ResponseWriter, r *http.Request) {
 	tenbeers := recsys.Get10RandomBeers()
@@ -40,12 +46,34 @@ func rekoFunc(w http.ResponseWriter, r *http.Request) {
  tmpl.Execute(w, recbeers)
 }
 
+
+
+func getItemID(url string) int {
+fields := strings.Split(url, "/")
+if len(fields) < 2 || fields[2] == "" { return -1 } // - /item/
+id, err := strconv.Atoi(fields[2])
+if err != nil { return -2 } // - /item/not_a_number
+return id // /item/nr/
+}
+
+func beerooFunc(w http.ResponseWriter, r *http.Request){
+	id := getItemID(r.RequestURI)
+	beroo := recsys.GetBeerByID(id) 
+	//  style := recsys.GetStyleName(beroo.Style)
+	style := recsys.GetStyleName(beroo.Style)
+	tmpl, _ := template.ParseFiles("pages/beroo.html")
+	tmpl.Execute(w, beroo)
+	tmpl.Execute(w, &Data{*beroo , style})
+
+}
+
 func main() {
 	// po testach działania należy te linijki zostawić
 	rand.Seed(time.Now().UnixMilli())
 	recsys = knn.Initialize()
 	http.HandleFunc("/beer/", beerFunc)
 	http.HandleFunc("/reko/", rekoFunc)
+	http.HandleFunc("/beroo/", beerooFunc)
 	// http.HandleFunc("/parse/", itemFunc)
 	http.ListenAndServe("localhost:8081", nil)
 
