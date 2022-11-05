@@ -30,6 +30,7 @@
               <th scope="col">Id</th>
               <th scope="col">Name</th>
               <th scope="col">Style</th>
+              <th scope="col">Score</th>
             </tr>
           </thead>
           <tbody>
@@ -38,14 +39,25 @@
               <th scope="row">{{.Id}}</th>
               <td>{{.Name}}</td>
               <td>{{.Style}}</td>
+              <td><select id="{{.Id}}" name="piwo{{.Id}}" form="PostForm">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select></td>
+              
             </tr>
             {{ end }}
+
           </tbody>
         </table>
-        {{ range . }}
+         <input type="submit" value="submit" />
+        <!-- {{ range . }}
         <select id="{{.Id}}" name="piwo{{.Id}}" form="PostForm">
           <option value="volvo">{{.Name}}</option>
         </select>
+        {{ end }}
         <div class="d-flex justify-content-center mt-4">
           <div class="form-check form-check-inline">
             <input
@@ -93,10 +105,9 @@
             <label class="form-check-label" for="inlineCheckbox5">5</label>
           </div>
         </div>
-        {{ end }}
         <input type="submit" value="submit" />
       </form>
-      <br />
+      <br /> -->
 
       <!-- <form action="/reko/" method="POST">
         <table class="table table-dark mt-4">

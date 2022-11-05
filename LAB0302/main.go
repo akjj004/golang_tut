@@ -47,7 +47,7 @@ func main() {
 	http.HandleFunc("/beer/", beerFunc)
 	http.HandleFunc("/reko/", rekoFunc)
 	// http.HandleFunc("/parse/", itemFunc)
-	http.ListenAndServe("localhost:8080", nil)
+	http.ListenAndServe("localhost:8081", nil)
 
 	// a te poniżej zakomentować
 	// rand.Seed(time.Now().UnixMilli())
